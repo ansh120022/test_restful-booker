@@ -1,6 +1,16 @@
 from model.booking import BookingData, RandomDate
 import pytest
+from common.schema.booking import get_booking_schema, post_booking_schema
+import jsonschema
+import json
 
+def json_validate(json: dict, schema: dict) -> bool:
+    """Валидация JSON."""
+    try:
+        jsonschema.validate(json, schema)
+        return True
+    except jsonschema.exceptions.ValidationError:
+        return False
 
 class TestBooking:
 
@@ -13,7 +23,19 @@ class TestBooking:
         """
         id_booking = create_booking.get('bookingid')
         res = client.get_booking(id_booking)
-        assert res.json() == create_booking.get('booking')
+        response = json.dumps(client.get_booking(id_booking), ensure_ascii=False)
+        valid = json_validate(response, get_booking_schema)
+        if valid:
+            assert res.json() == create_booking.get('booking')
+        print ('not valid')
+
+
+        # data = request.get_json()
+        # if json_validate(data, DRIVERS_SCHEMA):
+        #     insert_driver(driver_data(data))
+        #     return Response(status=201, response="created!")
+        # else:
+        #     return Response(status=400, response="Невалидный запрос")
 
 
 class TestCreateBookingPositive:
