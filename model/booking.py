@@ -30,7 +30,7 @@ class BookingData:
         last_name = fake.last_name()
         total_price = fake.pyint()
         deposit_paid = fake.pybool()
-        additional_needs = fake.word()
+        additional_needs = f"{fake.word()}{fake.random.randint(796,98876)}"
         check_in = fake.iso8601()[:10]
         checkout = fake.iso8601()[:10]
         return BookingData(first_name, last_name, total_price,

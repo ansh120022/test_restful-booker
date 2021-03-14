@@ -5,9 +5,10 @@ class BookingApi:
     def __init__(self, client):
         self.client = client
 
-    def get_booking_ids(self, uid: int):
+    def get_booking_ids(self, field: str, value: str):
         """Returns the ids of all the bookings that exist within the API"""
-        return self.client.request.get(self.client.url + f"/booking/")
+        response = self.client.request.get(self.client.url + '/booking/', params={field: value})
+        return response
 
     def get_booking(self, uid: int):
         """Returns a specific booking based upon the booking id provided"""

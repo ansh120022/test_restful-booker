@@ -20,9 +20,9 @@ class TestCreateBooking:
         """Проверка допустимых значений параметра depositpaid"""
         data = BookingData().random()
         setattr(data, 'depositpaid', value)
-        res = client.booking.create_booking(data)
-        assert res.status_code == 200
-        booking_info = res.json()
+        response = client.booking.create_booking(data)
+        assert response.status_code == 200
+        booking_info = response.json()
         assert booking_info.get('booking') == data
 
     @pytest.mark.parametrize("value",
@@ -31,7 +31,8 @@ class TestCreateBooking:
         """Проверка допустимых значений параметра totalprice"""
         data = BookingData().random()
         setattr(data, 'totalprice', value)
-        res = client.booking.create_booking(data)
-        assert res.status_code == 200
-        booking_info = res.json()
+        response = client.booking.create_booking(data)
+        assert response.status_code == 200
+        booking_info = response.json()
         assert booking_info.get('booking') == data
+
