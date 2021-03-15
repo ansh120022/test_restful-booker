@@ -1,7 +1,6 @@
 import pytest
 
 from api.client import Client
-from model.booking import BookingData
 from model.login import UserData
 
 
@@ -34,15 +33,4 @@ def pytest_addoption(parser):
         action="store",
         default="password123",
         help="enter password",
-    ),
-
-
-@pytest.fixture()
-def create_booking(client):
-    """
-    Create new booking with random data
-    :return: response dict
-    """
-    data = BookingData().random()
-    res = client.create_booking(data)
-    return res.json()
+    )

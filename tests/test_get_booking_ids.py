@@ -1,5 +1,5 @@
 """Проверка запроса на поиск бронирований по разным полям."""
-from model.booking import BookingData
+from model.booking import AddBookingResponse, BookingData
 import pytest
 
 data = BookingData().random()
@@ -20,7 +20,7 @@ class TestGetBookingIds:
         """
         Создаём бронирование, затем ищем его по имени и фамилии клиента.
         """
-        client.booking.create_booking(data)
+        client.booking.create_booking(data, type_response=AddBookingResponse)
         request = client.booking.get_booking_ids(field, value)
         assert request.status_code == 200, "Созданный запрос не найден"
 

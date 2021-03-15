@@ -1,5 +1,6 @@
 from model.booking import BookingData
 from common.logging import log
+import cattr
 
 
 class BookingApi:
@@ -18,10 +19,12 @@ class BookingApi:
         return self.client.request.get(self.client.url + f"/booking/{uid}")
 
     @log("Create booking")
-    def create_booking(self, data: BookingData):
+    def create_booking(self, data, type_response):
         """Creates a new booking in the API"""
         data = data.object_to_dict()
-        return self.client.request.post(self.client.url + "/booking", json=data)
+        response = self.client.request.post(self.client.url + "/booking", json=data)
+        response.data = cattr.structure(response.json(), type_response)
+        return response
 
     @log("Update booking")
     def update_booking(self, uid: int, data: BookingData):

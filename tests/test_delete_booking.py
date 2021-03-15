@@ -1,5 +1,5 @@
 """Удаление бронирования."""
-from model.booking import BookingData
+from model.booking import AddBookingResponse, BookingData
 
 class TestDeleteBooking:
     def test_update_booking(self, client):
@@ -10,7 +10,7 @@ class TestDeleteBooking:
         4. Попытка найти удалённую запись
         """
         data = BookingData().random()
-        create_response = client.booking.create_booking(data)
+        create_response = client.booking.create_booking(data, type_response=AddBookingResponse)
         assert create_response.status_code == 200
 
         search_response = client.booking.get_booking_ids("lastname", data.lastname)
