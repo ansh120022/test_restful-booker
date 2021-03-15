@@ -4,6 +4,7 @@ import requests
 
 from model.login import UserData
 from api.booking import BookingApi
+from common.logging import log
 
 logger = logging.getLogger()
 
@@ -15,6 +16,7 @@ class Client:
         self.url = url
         self.booking = BookingApi(self)
 
+    @log("Login")
     def login(self, user_data: UserData):
         data = user_data.__dict__
         return self.request.post(self.url + "/auth", json=data)
