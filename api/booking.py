@@ -24,13 +24,12 @@ class BookingApi:
         data = data.object_to_dict()
         return self.client.request.put(self.client.url + f"/booking/{uid}", json=data)
 
-    def update_booking_partial(self, uid: int, data: BookingData):
+    def update_booking_partial(self, uid, field: str, value: str,):
         """Updates current booking with a partial payload"""
-        data = data.object_to_dict()
-        return self.client.request.patch(self.client.url + f"/booking/{uid}", json=data)
+        return self.client.request.patch(self.client.url + f"/booking/{uid}", json={field:
+                                                                                           value})
 
-    def delete_booking(self, uid: int, data: BookingData):
+    def delete_booking(self, uid: int):
         """Returns the ids of all the bookings that exist within the API"""
-        data = data.object_to_dict()
-        return self.client.request.delete(self.client.url + f"/booking/{uid}", json=data)
+        return self.client.request.delete(self.client.url + f"/booking/{uid}")
 

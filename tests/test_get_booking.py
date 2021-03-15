@@ -1,5 +1,4 @@
 """Получение запроса по id."""
-from model.booking import BookingData
 
 
 class TestGetBooking:
